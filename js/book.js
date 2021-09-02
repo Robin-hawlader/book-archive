@@ -1,3 +1,6 @@
+
+// search area-------------------
+// ----------------------------------------
 const searchBook = () => {
     const inputField = document.getElementById('search-field');
     const inputText = inputField.value;
@@ -9,7 +12,7 @@ const searchBook = () => {
         error.appendChild(h3);
     }
     else {
-        const url = (`http://openlibrary.org/search.json?q=${inputText}`)
+        const url = (`https://openlibrary.org/search.json?q=${inputText}`)
         fetch(url)
             .then(res => res.json())
             .then(data => displayBooks(data.docs));
@@ -18,19 +21,20 @@ const searchBook = () => {
     }
 }
 
+// display area------------------------
+// -------------------------------------------
 const displayBooks = books => {
-    console.log(books)
-
     document.getElementById('error').innerText = `Search-Result: ${books.length} Items`;
-    const bookInfo = document.getElementById('book-info')
+    const bookInfo = document.getElementById('book-info');
     bookInfo.textContent = '';
+
     books.forEach(book => {
         const div = document.createElement('div');
         div.classList.add('col');
         div.innerHTML = `
-        <div class="card h-100 shadow">
-            <img width="200px" src="https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
+        <div class="card h-100 shadow p-4">
+            <img width="200px" src="http://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg" class="card-img-top" alt="...">
+            <div class="card-body text-center">
                 <h5 class="card-title">Title: ${book.title}</h5>
                 <h5>Author: ${book.author_name}</h5>
                 <p>First-Publish: ${book.first_publish_year}</P>
